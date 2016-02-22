@@ -2,14 +2,14 @@
 title: "GDP"
 author: "Daning Bi"
 date: "Febuary 21, 2016"
-output: html_document
+output: pdf_document
 ---
 # Part a
 
 First of all we need to read the data into R:
 
 ```{r}
-setwd("D:\\ANU\\2016S1\\STAT8027\\")
+setwd("D:\\ANU\\2016S1\\STAT8027\\stat8027\\")
 gdp <- read.table("GDP.txt", header = T)
 ```
 
