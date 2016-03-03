@@ -1,0 +1,51 @@
+---
+title: "GDP2"
+author: "Daning Bi"
+date: "March 3, 2016"
+output: pdf_document
+header-includes:
+- \usepackage{bbm}
+- \usepackage{amsmath}
+---
+# Part a
+
+First of all we need to read the data into R:
+
+```{r}
+setwd("D:\\ANU\\2016S1\\STAT8027\\stat8027")
+gdp <- read.csv("gdp2013.csv")
+labor <- read.csv("labor2013.csv")
+```
+
+Before we run the linear regression model, we need to have a check of the data. We take logritham to remove the skewness of the data, then plot the labor with gdp. The missing value has also been removed.
+
+```{r}
+y<-as.matrix(na.omit(log(gdp[,3])))
+g<-as.matrix(na.omit(log(labor[,3])))
+
+plot(g,y)
+
+```
+
+According to the matrix form solution of linear regression, $
+$$\boldsymbol{\beta =(X'X)^{-1}X'Y}$$.
+
+Hence we can solve the linear regression parameters using matrix calculation:
+```{r}
+i <- as.matrix(rep(1,length(g)))
+x <- cbind(i,g)
+beta <- solve(t(x)%*%x)%*%t(x)%*%y
+beta
+```
+
+Hence we can solve that $\boldsymbol\beta_{0}=19.447$, and $\boldsymbol\beta_{1}=0.353$.
+
+Then we can use `lm()` function in R to check if the answer we calculated is correct or not:
+
+```{r}
+lr <- lm(y~g)
+summary(lr)
+lr$coefficients
+```
+
+As they are exactly the same, we have double checked our solution.
